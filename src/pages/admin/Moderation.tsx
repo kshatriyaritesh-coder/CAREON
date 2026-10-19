@@ -11,7 +11,6 @@ export default function Moderation() {
 
   useEffect(() => {
     async function load() {
-      // Admin needs to see all, including flagged — we insert with service role via this tool
       const { data } = await supabase
         .from('job_notices')
         .select('*')
@@ -99,7 +98,6 @@ export default function Moderation() {
                       </div>
                     </div>
 
-                    {/* Moderation actions */}
                     <div className="flex gap-2 flex-shrink-0 flex-wrap">
                       <button
                         onClick={() => setExpanded(isOpen ? null : job.id)}

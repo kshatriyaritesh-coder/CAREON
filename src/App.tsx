@@ -58,7 +58,6 @@ function AppRoutes() {
         <Route path="/auth" element={<Auth />} />
         <Route path="/demo" element={<Demo />} />
 
-        {/* Student */}
         <Route path="/student" element={<ProtectedStudentRoute><StudentLayout /></ProtectedStudentRoute>}>
           <Route index element={<StudentDashboard />} />
           <Route path="progress" element={<ProgressPage />} />
@@ -70,14 +69,12 @@ function AppRoutes() {
           <Route path="notifications" element={<Notifications />} />
         </Route>
 
-        {/* Company */}
         <Route path="/company" element={<ProtectedCompanyRoute><CompanyLayout /></ProtectedCompanyRoute>}>
           <Route index element={<CompanyDashboard />} />
           <Route path="post" element={<PostJob />} />
           <Route path="listings" element={<CompanyListings />} />
         </Route>
 
-        {/* Admin */}
         <Route path="/admin" element={<ProtectedAdminRoute><AdminLayout /></ProtectedAdminRoute>}>
           <Route index element={<AdminDashboard />} />
           <Route path="moderation" element={<Moderation />} />

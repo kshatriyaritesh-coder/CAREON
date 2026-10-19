@@ -57,7 +57,6 @@ export default function Interview() {
     if (currentQ < questions.length - 1) {
       setCurrentQ(c => c + 1);
     } else {
-      // Finalize
       const fb = generateSessionFeedback(newAnswers);
       setSessionFeedback(fb);
       saveSession(newAnswers, fb);
@@ -126,7 +125,6 @@ export default function Interview() {
         )}
       </div>
 
-      {/* Setup */}
       {phase === 'setup' && (
         <div className="bg-white rounded-2xl border border-gray-100 p-6 space-y-6">
           <div>
@@ -166,7 +164,6 @@ export default function Interview() {
         </div>
       )}
 
-      {/* Question */}
       {phase === 'question' && questions.length > 0 && (
         <div className="bg-white rounded-2xl border border-gray-100 p-6 space-y-5">
           <div className="flex items-center justify-between">
@@ -201,7 +198,6 @@ export default function Interview() {
             <p className="text-xs text-gray-400 mt-1">{answer.trim().split(/\s+/).filter(Boolean).length} words</p>
           </div>
 
-          {/* Previous answers in session */}
           {answers.length > 0 && (
             <div className="space-y-2">
               <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">Previous answers</p>
@@ -228,10 +224,8 @@ export default function Interview() {
         </div>
       )}
 
-      {/* Results */}
       {phase === 'results' && sessionFeedback && (
         <div className="space-y-5">
-          {/* Score card */}
           <div className="bg-white rounded-2xl border border-gray-100 p-6 text-center">
             <div className={`text-5xl font-bold mb-2 ${scoreColor(sessionFeedback.score)}`}>
               {sessionFeedback.score}%
@@ -244,7 +238,6 @@ export default function Interview() {
             </div>
           </div>
 
-          {/* Feedback */}
           <div className="bg-white rounded-2xl border border-gray-100 p-6">
             <h3 className="font-semibold text-gray-900 mb-3">Overall Feedback</h3>
             <p className="text-sm text-gray-600 leading-relaxed">{sessionFeedback.overall}</p>
@@ -277,7 +270,6 @@ export default function Interview() {
             </div>
           </div>
 
-          {/* Per-question breakdown */}
           <div className="bg-white rounded-2xl border border-gray-100 p-6">
             <h3 className="font-semibold text-gray-900 mb-4">Question Breakdown</h3>
             <div className="space-y-4">
@@ -306,7 +298,6 @@ export default function Interview() {
         </div>
       )}
 
-      {/* History */}
       {phase === 'history' && (
         <div className="bg-white rounded-2xl border border-gray-100 p-6">
           <h3 className="font-semibold text-gray-900 mb-4">Past Sessions</h3>

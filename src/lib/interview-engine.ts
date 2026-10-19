@@ -11,7 +11,6 @@ export function scoreAnswer(question: InterviewQuestion, answer: string): { scor
   const matchedKeywords = idealKeywords.filter(k => lowerAnswer.includes(k));
   const coverage = idealKeywords.length > 0 ? matchedKeywords.length / idealKeywords.length : 0;
 
-  // Word count bonus (length signal)
   const wordCount = answer.trim().split(/\s+/).length;
   const lengthBonus = wordCount >= 50 ? 10 : wordCount >= 30 ? 5 : 0;
 

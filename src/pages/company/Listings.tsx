@@ -48,7 +48,6 @@ export default function CompanyListings() {
         </Link>
       </div>
 
-      {/* Filters */}
       <div className="flex gap-2">
         {(['all', 'active', 'flagged', 'closed'] as const).map(f => (
           <button

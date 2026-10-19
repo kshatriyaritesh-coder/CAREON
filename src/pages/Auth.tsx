@@ -16,6 +16,7 @@ export default function Auth() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
 
   const { signIn, signUp, profile } = useAuth();
@@ -32,8 +33,13 @@ export default function Auth() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError('');
+    setSuccess('');
     setLoading(true);
     try {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        setError('Please enter a valid email address, such as name@example.com.');
+        return;
+      }
       if (mode === 'signin') {
         const { error: err } = await signIn(email, password);
         if (err) setError(err);
@@ -41,6 +47,7 @@ export default function Auth() {
         if (!fullName.trim()) { setError('Please enter your full name.'); return; }
         const { error: err } = await signUp(email, password, role, fullName, companyName || undefined);
         if (err) setError(err);
+        else setSuccess('Account created. You can now sign in.');
       }
     } finally {
       setLoading(false);
@@ -78,7 +85,6 @@ export default function Auth() {
         </div>
 
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
-          {/* Mode toggle */}
           <div className="flex rounded-lg border border-gray-200 p-1 mb-6">
             <button
               type="button"
@@ -97,7 +103,6 @@ export default function Auth() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Role selector — signup only */}
             {mode === 'signup' && (
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">I am a…</label>
@@ -125,7 +130,6 @@ export default function Auth() {
               </div>
             )}
 
-            {/* Full name — signup only */}
             {mode === 'signup' && (
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1.5">
@@ -142,7 +146,6 @@ export default function Auth() {
               </div>
             )}
 
-            {/* Company name — company signup only */}
             {mode === 'signup' && role === 'company' && (
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1.5">Company name</label>
@@ -163,6 +166,8 @@ export default function Auth() {
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 placeholder="you@example.com"
+                pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
+                title="Enter a complete email address, such as name@example.com."
                 className="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 required
               />
@@ -194,6 +199,12 @@ export default function Auth() {
               <div className="flex items-start gap-2 text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg p-3">
                 <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
                 {error}
+              </div>
+            )}
+
+            {success && (
+              <div className="text-sm text-green-700 bg-green-50 border border-green-100 rounded-lg p-3">
+                {success}
               </div>
             )}
 

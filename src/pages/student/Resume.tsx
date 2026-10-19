@@ -11,7 +11,6 @@ export default function ResumePage() {
   const [saving, setSaving] = useState(false);
   const [mode, setMode] = useState<'view' | 'edit' | 'upload'>('view');
 
-  // Editable fields
   const [skills, setSkills] = useState<string[]>([]);
   const [newSkill, setNewSkill] = useState('');
   const [education, setEducation] = useState<{ degree: string; institution: string; year: string }[]>([]);
@@ -117,7 +116,6 @@ export default function ResumePage() {
         )}
       </div>
 
-      {/* Upload mode */}
       {mode === 'upload' && (
         <div className="bg-white rounded-2xl border border-gray-100 p-6 space-y-4">
           <div>
@@ -162,10 +160,8 @@ Google Data Analytics Certificate - 2025"
         </div>
       )}
 
-      {/* View / Edit */}
       {(mode === 'view' || mode === 'edit') && resume && (
         <div className="space-y-5">
-          {/* Skills */}
           <div className="bg-white rounded-2xl border border-gray-100 p-6">
             <h3 className="font-semibold text-gray-900 mb-3">Skills</h3>
             <div className="flex flex-wrap gap-2">
@@ -196,7 +192,6 @@ Google Data Analytics Certificate - 2025"
             )}
           </div>
 
-          {/* Education */}
           <div className="bg-white rounded-2xl border border-gray-100 p-6">
             <h3 className="font-semibold text-gray-900 mb-3">Education</h3>
             {(mode === 'edit' ? education : resume.education).length === 0 ? (
@@ -236,7 +231,6 @@ Google Data Analytics Certificate - 2025"
             )}
           </div>
 
-          {/* Experience */}
           <div className="bg-white rounded-2xl border border-gray-100 p-6">
             <h3 className="font-semibold text-gray-900 mb-3">Work Experience</h3>
             {(mode === 'edit' ? experience : resume.experience).length === 0 ? (
@@ -275,7 +269,6 @@ Google Data Analytics Certificate - 2025"
             )}
           </div>
 
-          {/* Certifications */}
           <div className="bg-white rounded-2xl border border-gray-100 p-6">
             <h3 className="font-semibold text-gray-900 mb-3">Certifications</h3>
             {(mode === 'edit' ? certifications : resume.certifications).length === 0 ? (

@@ -17,25 +17,21 @@ export function computeMatchScore(
     else missing.push(skill);
   }
 
-  // Base score: skill coverage weighted 70%
   const skillCoverage = jobSkills.length > 0 ? (matched.length / jobSkills.length) : 0;
   let score = Math.round(skillCoverage * 70);
 
-  // Bonus: relevant education (up to 15 pts)
   const techDomains = ['Computer Science', 'Information Technology', 'Engineering', 'Mathematics', 'Statistics', 'Finance', 'Design', 'Economics', 'Business'];
   const hasTechDegree = resume.education.some(e =>
     techDomains.some(d => e.degree.toLowerCase().includes(d.toLowerCase()))
   );
   if (hasTechDegree) score += 10;
 
-  // Bonus: certifications (up to 10 pts)
   const jobSkillsLower = jobSkills;
   const certMatches = resume.certifications.filter(c =>
     jobSkillsLower.some(s => c.toLowerCase().includes(s))
   );
   score += Math.min(10, certMatches.length * 5);
 
-  // Bonus: experience (up to 15 pts)
   const expDesc = resume.experience.map(e => `${e.title} ${e.description}`.toLowerCase()).join(' ');
   const expMatches = jobSkillsLower.filter(s => expDesc.includes(s));
   score += Math.min(15, expMatches.length * 5);

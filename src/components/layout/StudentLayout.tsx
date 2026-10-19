@@ -80,12 +80,10 @@ export default function StudentLayout() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
-      {/* Desktop Sidebar */}
       <aside className="hidden lg:flex flex-col w-60 bg-white border-r border-gray-100 fixed h-full z-30">
         <Sidebar />
       </aside>
 
-      {/* Mobile Sidebar */}
       {mobileOpen && (
         <div className="lg:hidden fixed inset-0 z-50">
           <div className="absolute inset-0 bg-black/40" onClick={() => setMobileOpen(false)} />
@@ -95,9 +93,7 @@ export default function StudentLayout() {
         </div>
       )}
 
-      {/* Main */}
       <div className="flex-1 lg:ml-60 flex flex-col min-h-screen">
-        {/* Mobile header */}
         <div className="lg:hidden flex items-center justify-between px-4 h-14 border-b bg-white border-gray-100">
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center">

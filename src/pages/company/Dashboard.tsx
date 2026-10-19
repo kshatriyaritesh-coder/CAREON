@@ -40,7 +40,6 @@ export default function CompanyDashboard() {
         <p className="text-gray-500 mt-1">Manage your job listings and track candidate interest.</p>
       </div>
 
-      {/* Stats */}
       <div className="grid grid-cols-3 gap-4">
         {[
           { label: 'Active Listings', value: active.length, color: 'text-emerald-600 bg-emerald-50', icon: Briefcase },
@@ -57,7 +56,6 @@ export default function CompanyDashboard() {
         ))}
       </div>
 
-      {/* Quick actions */}
       <div className="grid md:grid-cols-2 gap-5">
         <div className="bg-emerald-600 rounded-2xl p-6 text-white flex flex-col justify-between">
           <div>
@@ -82,7 +80,6 @@ export default function CompanyDashboard() {
         </div>
       </div>
 
-      {/* Recent listings */}
       {jobs.length > 0 && (
         <div className="bg-white rounded-2xl border border-gray-100 p-6">
           <div className="flex items-center justify-between mb-4">

@@ -17,14 +17,13 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
-      {/* Nav */}
       <nav className="fixed top-0 w-full z-50 bg-white/95 backdrop-blur border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center">
               <Zap className="w-5 h-5 text-white" />
             </div>
-            <span className="text-lg font-bold text-gray-900">CareerPath</span>
+            <span className="text-lg font-bold text-gray-900">CAREON</span>
           </div>
           <div className="flex items-center gap-3">
             {dashPath ? (
@@ -51,7 +50,6 @@ export default function Landing() {
         </div>
       </nav>
 
-      {/* Hero */}
       <section className="pt-32 pb-24 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
@@ -83,7 +81,6 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Features */}
       <section className="py-20 px-6 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
@@ -111,7 +108,6 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Roles */}
       <section className="py-20 px-6">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
@@ -155,7 +151,6 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="py-20 px-6 bg-blue-600">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-white mb-4">Ready to find your path?</h2>
@@ -170,16 +165,15 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="py-8 px-6 border-t border-gray-100">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 rounded bg-blue-600 flex items-center justify-center">
               <Zap className="w-4 h-4 text-white" />
             </div>
-            <span className="text-sm font-semibold text-gray-700">CareerPath</span>
+            <span className="text-sm font-semibold text-gray-700">CAREON</span>
           </div>
-          <p className="text-sm text-gray-400">© 2026 CareerPath. Empowering careers across the World.</p>
+          <p className="text-sm text-gray-400">© 2026 CAREON. Empowering careers across the World.</p>
         </div>
       </footer>
     </div>

@@ -45,7 +45,6 @@ export function computeCareerFit(
   let total = 0;
   const MAX = 100;
 
-  // Skill overlap (40 pts)
   const skillKeywords = SKILL_WEIGHTS[title] ?? careerPath.required_skills.map(s => s.toLowerCase());
   const userSkills = [...(assessment.technical_skills ?? []), ...(assessment.soft_skills ?? [])].map(s => s.toLowerCase());
   const skillMatches = userSkills.filter(s => skillKeywords.some(k => s.includes(k) || k.includes(s)));
@@ -55,7 +54,6 @@ export function computeCareerFit(
     reasons.push(`${skillMatches.length} matching skill${skillMatches.length > 1 ? 's' : ''} (${skillMatches.slice(0, 3).join(', ')})`);
   }
 
-  // Interest overlap (30 pts)
   const interestKeywords = INTEREST_WEIGHTS[title] ?? careerPath.related_interests.map(s => s.toLowerCase());
   const userInterests = (assessment.interests ?? []).map(s => s.toLowerCase());
   const interestMatches = userInterests.filter(i => interestKeywords.some(k => i.includes(k) || k.includes(i)));
@@ -65,7 +63,6 @@ export function computeCareerFit(
     reasons.push(`Interest alignment in ${interestMatches.slice(0, 2).join(', ')}`);
   }
 
-  // Subject performance (30 pts)
   const subjectMap = SUBJECT_RELEVANCE;
   let subjectScore = 0;
   for (const s of assessment.subjects ?? []) {

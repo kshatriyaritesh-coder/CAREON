@@ -90,7 +90,6 @@ export default function Assessment() {
         if (inserted) setExistingId(inserted.id);
       }
 
-      // Generate roadmap
       const { data: paths } = await supabase.from('career_paths').select('*');
       if (paths && paths.length > 0) {
         const roadmapPayload = generateRoadmap(
@@ -104,7 +103,6 @@ export default function Assessment() {
           await supabase.from('roadmaps').insert(roadmapPayload);
         }
 
-        // Create notification
         await supabase.from('notifications').insert({
           type: 'roadmap',
           title: 'Career Roadmap Generated',
@@ -132,7 +130,6 @@ export default function Assessment() {
       </div>
 
       <div className="bg-white rounded-2xl border border-gray-100 p-6 min-h-[380px] flex flex-col">
-        {/* Step: Subjects */}
         {step === 'subjects' && (
           <div className="flex-1">
             <h2 className="font-semibold text-gray-900 mb-1">What subjects did you study?</h2>
@@ -178,7 +175,6 @@ export default function Assessment() {
           </div>
         )}
 
-        {/* Step: Technical Skills */}
         {step === 'technical_skills' && (
           <div className="flex-1">
             <h2 className="font-semibold text-gray-900 mb-1">What are your technical skills?</h2>
@@ -202,7 +198,6 @@ export default function Assessment() {
           </div>
         )}
 
-        {/* Step: Soft Skills */}
         {step === 'soft_skills' && (
           <div className="flex-1">
             <h2 className="font-semibold text-gray-900 mb-1">What are your soft skills?</h2>
@@ -223,7 +218,6 @@ export default function Assessment() {
           </div>
         )}
 
-        {/* Step: Interests */}
         {step === 'interests' && (
           <div className="flex-1">
             <h2 className="font-semibold text-gray-900 mb-1">What are your interests?</h2>
@@ -244,7 +238,6 @@ export default function Assessment() {
           </div>
         )}
 
-        {/* Step: Work Style */}
         {step === 'work_style' && (
           <div className="flex-1">
             <h2 className="font-semibold text-gray-900 mb-1">How do you prefer to work?</h2>
@@ -263,7 +256,6 @@ export default function Assessment() {
           </div>
         )}
 
-        {/* Step: Priorities */}
         {step === 'priorities' && (
           <div className="flex-1">
             <h2 className="font-semibold text-gray-900 mb-1">What matters most in your career?</h2>
@@ -284,7 +276,6 @@ export default function Assessment() {
           </div>
         )}
 
-        {/* Navigation */}
         <div className="flex items-center justify-between pt-6 border-t border-gray-100 mt-6">
           <button
             onClick={() => setCurrentStep(s => Math.max(0, s - 1))}

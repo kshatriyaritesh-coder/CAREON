@@ -1,63 +1,3 @@
-/*
-# Career Recommendation System — Full Schema
-
-## Overview
-Creates all tables needed for the Career Recommendation System: user profiles,
-student assessments, career paths, roadmaps, job notices, resumes, match results,
-interview sessions, questions, and notifications.
-
-## New Tables
-
-### profiles
-Extends auth.users with role (student/company/admin) and display name.
-
-### assessments
-Stores a student's onboarding questionnaire responses: subjects/marks,
-skills (technical + soft), interests, work style preferences, and career priorities.
-
-### career_paths
-Seeded reference data — each career path has required skills, milestone roadmap steps,
-and related job categories.
-
-### roadmaps
-Links a student to 2-3 recommended career paths; stores matched reasoning and
-selected path.
-
-### job_notices
-Company job postings that go live instantly. Includes required_skills (array),
-qualifications, experience level, location, deadline, status
-(active/flagged/closed), and a parsed_skills JSON field.
-
-### resumes
-A student's parsed resume data: skills list, education, experience, certifications,
-and a raw text field for keyword extraction.
-
-### match_results
-Pre-computed (or on-demand) fit scores between a resume and a job notice. Stores
-matched_skills, missing_skills arrays, and a 0-100 score.
-
-### interview_questions
-Question bank seeded with questions grouped by domain and difficulty.
-
-### interview_sessions
-Records each mock interview attempt: the question set used, student answers,
-and rule-based feedback report.
-
-### notifications
-In-app notification inbox per user: type, message, read status, reference ids.
-
-## Security
-- RLS enabled on all tables.
-- Students own their own profiles/assessments/roadmaps/resumes/sessions/notifications.
-- Companies own their own job_notices.
-- Admins need read on all job_notices + update for moderation (status changes).
-- job_notices and career_paths are readable by all authenticated users.
-- interview_questions are publicly readable.
-*/
-
--- ========================
--- PROFILES
--- ========================
 CREATE TABLE IF NOT EXISTS profiles (
   id uuid PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
   role text NOT NULL CHECK (role IN ('student', 'company', 'admin')),
@@ -85,9 +25,6 @@ DROP POLICY IF EXISTS "profiles_delete_own" ON profiles;
 CREATE POLICY "profiles_delete_own" ON profiles FOR DELETE
   TO authenticated USING (auth.uid() = id);
 
--- ========================
--- ASSESSMENTS
--- ========================
 CREATE TABLE IF NOT EXISTS assessments (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id uuid NOT NULL DEFAULT auth.uid() REFERENCES auth.users(id) ON DELETE CASCADE,
@@ -119,9 +56,7 @@ DROP POLICY IF EXISTS "assessments_delete_own" ON assessments;
 CREATE POLICY "assessments_delete_own" ON assessments FOR DELETE
   TO authenticated USING (auth.uid() = user_id);
 
--- ========================
--- CAREER PATHS (seeded reference data)
--- ========================
+
 CREATE TABLE IF NOT EXISTS career_paths (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   title text NOT NULL,
@@ -145,9 +80,7 @@ DROP POLICY IF EXISTS "career_paths_select_anon" ON career_paths;
 CREATE POLICY "career_paths_select_anon" ON career_paths FOR SELECT
   TO anon USING (true);
 
--- ========================
--- ROADMAPS
--- ========================
+
 CREATE TABLE IF NOT EXISTS roadmaps (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id uuid NOT NULL DEFAULT auth.uid() REFERENCES auth.users(id) ON DELETE CASCADE,
@@ -176,9 +109,7 @@ DROP POLICY IF EXISTS "roadmaps_delete_own" ON roadmaps;
 CREATE POLICY "roadmaps_delete_own" ON roadmaps FOR DELETE
   TO authenticated USING (auth.uid() = user_id);
 
--- ========================
--- JOB NOTICES
--- ========================
+
 CREATE TABLE IF NOT EXISTS job_notices (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   company_id uuid NOT NULL DEFAULT auth.uid() REFERENCES auth.users(id) ON DELETE CASCADE,
@@ -196,17 +127,14 @@ CREATE TABLE IF NOT EXISTS job_notices (
 
 ALTER TABLE job_notices ENABLE ROW LEVEL SECURITY;
 
--- All authenticated users can view active job notices
 DROP POLICY IF EXISTS "job_notices_select_active" ON job_notices;
 CREATE POLICY "job_notices_select_active" ON job_notices FOR SELECT
   TO authenticated USING (status = 'active' OR auth.uid() = company_id);
 
--- Companies can insert their own
 DROP POLICY IF EXISTS "job_notices_insert_own" ON job_notices;
 CREATE POLICY "job_notices_insert_own" ON job_notices FOR INSERT
   TO authenticated WITH CHECK (auth.uid() = company_id);
 
--- Companies can update their own; admins can update any (for moderation)
 DROP POLICY IF EXISTS "job_notices_update_own" ON job_notices;
 CREATE POLICY "job_notices_update_own" ON job_notices FOR UPDATE
   TO authenticated USING (
@@ -224,9 +152,6 @@ CREATE POLICY "job_notices_delete_own" ON job_notices FOR DELETE
     EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'admin')
   );
 
--- ========================
--- RESUMES
--- ========================
 CREATE TABLE IF NOT EXISTS resumes (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id uuid NOT NULL DEFAULT auth.uid() REFERENCES auth.users(id) ON DELETE CASCADE,
@@ -258,9 +183,6 @@ DROP POLICY IF EXISTS "resumes_delete_own" ON resumes;
 CREATE POLICY "resumes_delete_own" ON resumes FOR DELETE
   TO authenticated USING (auth.uid() = user_id);
 
--- ========================
--- MATCH RESULTS
--- ========================
 CREATE TABLE IF NOT EXISTS match_results (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   student_id uuid NOT NULL DEFAULT auth.uid() REFERENCES auth.users(id) ON DELETE CASCADE,
@@ -291,9 +213,6 @@ DROP POLICY IF EXISTS "match_results_delete_own" ON match_results;
 CREATE POLICY "match_results_delete_own" ON match_results FOR DELETE
   TO authenticated USING (auth.uid() = student_id);
 
--- ========================
--- INTERVIEW QUESTIONS
--- ========================
 CREATE TABLE IF NOT EXISTS interview_questions (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   domain text NOT NULL,
@@ -314,9 +233,6 @@ DROP POLICY IF EXISTS "interview_questions_select_anon" ON interview_questions;
 CREATE POLICY "interview_questions_select_anon" ON interview_questions FOR SELECT
   TO anon USING (true);
 
--- ========================
--- INTERVIEW SESSIONS
--- ========================
 CREATE TABLE IF NOT EXISTS interview_sessions (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id uuid NOT NULL DEFAULT auth.uid() REFERENCES auth.users(id) ON DELETE CASCADE,
@@ -347,9 +263,6 @@ DROP POLICY IF EXISTS "interview_sessions_delete_own" ON interview_sessions;
 CREATE POLICY "interview_sessions_delete_own" ON interview_sessions FOR DELETE
   TO authenticated USING (auth.uid() = user_id);
 
--- ========================
--- NOTIFICATIONS
--- ========================
 CREATE TABLE IF NOT EXISTS notifications (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id uuid NOT NULL DEFAULT auth.uid() REFERENCES auth.users(id) ON DELETE CASCADE,
@@ -379,9 +292,6 @@ DROP POLICY IF EXISTS "notifications_delete_own" ON notifications;
 CREATE POLICY "notifications_delete_own" ON notifications FOR DELETE
   TO authenticated USING (auth.uid() = user_id);
 
--- ========================
--- INDEXES
--- ========================
 CREATE INDEX IF NOT EXISTS idx_assessments_user ON assessments(user_id);
 CREATE INDEX IF NOT EXISTS idx_roadmaps_user ON roadmaps(user_id);
 CREATE INDEX IF NOT EXISTS idx_job_notices_status ON job_notices(status);

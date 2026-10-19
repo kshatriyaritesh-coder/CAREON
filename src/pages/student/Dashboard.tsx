@@ -51,7 +51,6 @@ export default function StudentDashboard() {
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
-      {/* Header */}
       <div>
         <h1 className="text-2xl font-bold text-gray-900">
           Welcome back{profile?.full_name ? `, ${profile.full_name.split(' ')[0]}` : ''}
@@ -59,7 +58,6 @@ export default function StudentDashboard() {
         <p className="text-gray-500 mt-1">Here's where your career journey stands today.</p>
       </div>
 
-      {/* Progress */}
       <div className="bg-white rounded-2xl border border-gray-100 p-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="font-semibold text-gray-900">Getting Started</h2>
@@ -96,7 +94,6 @@ export default function StudentDashboard() {
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
-        {/* Career path */}
         {selectedPath ? (
           <div className="bg-white rounded-2xl border border-gray-100 p-6">
             <div className="flex items-center gap-2 mb-3">
@@ -129,7 +126,6 @@ export default function StudentDashboard() {
           </div>
         )}
 
-        {/* Next step */}
         {nextStep ? (
           <div className="bg-white rounded-2xl border border-gray-100 p-6 flex flex-col justify-between">
             <div>
@@ -158,7 +154,6 @@ export default function StudentDashboard() {
         )}
       </div>
 
-      {/* Quick links */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
           { to: '/student/jobs', label: 'Job Matches', icon: Briefcase, color: 'text-amber-600 bg-amber-50' },

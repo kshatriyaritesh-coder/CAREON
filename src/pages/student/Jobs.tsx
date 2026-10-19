@@ -152,7 +152,6 @@ export default function JobMatches() {
                   </div>
                 </div>
 
-                {/* Quick skill summary */}
                 <div className="flex items-center gap-4 mt-3 flex-wrap">
                   <div className="flex items-center gap-1.5">
                     <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
@@ -182,7 +181,6 @@ export default function JobMatches() {
                 </button>
               </div>
 
-              {/* Skill Gap detail */}
               {isOpen && (
                 <div className="px-5 pb-5 space-y-4 border-t border-gray-100">
                   <div className="mt-4">
@@ -216,7 +214,6 @@ export default function JobMatches() {
                     </div>
                   </div>
 
-                  {/* Improvement suggestions */}
                   {match.missing_skills.length > 0 && (
                     <div className="bg-amber-50 rounded-xl p-4 space-y-3">
                       <p className="text-xs font-semibold text-amber-800 uppercase tracking-wider flex items-center gap-1.5">

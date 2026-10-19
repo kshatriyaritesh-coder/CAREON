@@ -16,6 +16,30 @@ interface AuthContextValue {
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
+function formatAuthError(error: unknown, fallback: string) {
+  const message = error instanceof Error
+    ? error.message
+    : typeof error === 'string'
+      ? error
+      : typeof error === 'object' && error !== null && 'message' in error && typeof error.message === 'string'
+        ? error.message
+        : '';
+  const normalizedMessage = message.toLowerCase();
+  if (normalizedMessage.includes('email not confirmed')) {
+    return 'Email is not confirmed. Check your inbox, or disable Confirm email in Supabase Authentication settings for local testing.';
+  }
+  if (normalizedMessage.includes('invalid login credentials')) {
+    return 'Email or password is incorrect. Use the credentials for a user in this Supabase project, or create the account again here.';
+  }
+  if (normalizedMessage.includes('rate limit') || normalizedMessage.includes('email rate')) {
+    return 'Email rate limit reached. Wait a few minutes before trying again, or disable email confirmation in Supabase for local testing.';
+  }
+  if (normalizedMessage.includes('fetch')) {
+    return 'Unable to reach Supabase. Check VITE_SUPABASE_URL and that the Supabase project is active.';
+  }
+  return message || fallback;
+}
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
@@ -23,12 +47,40 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   async function loadProfile(uid: string) {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('profiles')
       .select('*')
       .eq('id', uid)
       .maybeSingle();
-    setProfile(data ?? null);
+    if (error || data) {
+      setProfile(data ?? null);
+      return;
+    }
+
+    const currentUser = (await supabase.auth.getUser()).data.user;
+    if (!currentUser) {
+      setProfile(null);
+      return;
+    }
+
+    const role = currentUser.user_metadata?.role as UserRole | undefined;
+    if (!role || !['student', 'company', 'admin'].includes(role)) {
+      setProfile(null);
+      return;
+    }
+
+    const { data: createdProfile } = await supabase
+      .from('profiles')
+      .insert({
+        id: currentUser.id,
+        role,
+        full_name: currentUser.user_metadata?.full_name ?? null,
+        email: currentUser.email ?? null,
+        company_name: currentUser.user_metadata?.company_name ?? null,
+      })
+      .select()
+      .single();
+    setProfile(createdProfile ?? null);
   }
 
   useEffect(() => {
@@ -65,25 +117,39 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     fullName: string,
     companyName?: string
   ): Promise<{ error: string | null }> {
-    const { data, error } = await supabase.auth.signUp({ email, password });
-    if (error) return { error: error.message };
-    if (!data.user) return { error: 'Sign-up failed. Please try again.' };
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: { data: { role, full_name: fullName, company_name: companyName ?? null } },
+      });
+      if (error) return { error: formatAuthError(error, 'Sign-up failed. Please try again.') };
+      if (!data.user) return { error: 'Sign-up failed. Please try again.' };
 
-    const { error: profileError } = await supabase.from('profiles').insert({
-      id: data.user.id,
-      role,
-      full_name: fullName,
-      email,
-      company_name: companyName ?? null,
-    });
-    if (profileError) return { error: profileError.message };
-    return { error: null };
+      if (!data.session) return { error: null };
+
+      const { error: profileError } = await supabase.from('profiles').upsert({
+        id: data.user.id,
+        role,
+        full_name: fullName,
+        email,
+        company_name: companyName ?? null,
+      }, { onConflict: 'id' });
+      if (profileError) return { error: formatAuthError(profileError, 'Profile creation failed. Please try again.') };
+      return { error: null };
+    } catch (error) {
+      return { error: formatAuthError(error, 'Sign-up failed. Please try again.') };
+    }
   }
 
   async function signIn(email: string, password: string): Promise<{ error: string | null }> {
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) return { error: error.message };
-    return { error: null };
+    try {
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) return { error: formatAuthError(error, 'Sign-in failed. Please try again.') };
+      return { error: null };
+    } catch (error) {
+      return { error: formatAuthError(error, 'Sign-in failed. Please try again.') };
+    }
   }
 
   async function signOut() {

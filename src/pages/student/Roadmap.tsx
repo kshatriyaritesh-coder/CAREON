@@ -74,7 +74,6 @@ export default function RoadmapPage() {
         <p className="text-gray-500 text-sm">Based on your assessment, here are your top matches and a month-by-month action plan.</p>
       </div>
 
-      {/* Path selector */}
       <div className="grid md:grid-cols-3 gap-4">
         {recommended.map(({ path, score, reasons }) => (
           <button
@@ -108,7 +107,6 @@ export default function RoadmapPage() {
         ))}
       </div>
 
-      {/* Selected path details */}
       {selected && (
         <div className="space-y-6">
           <div className="bg-white rounded-2xl border border-gray-100 p-6">
@@ -124,7 +122,6 @@ export default function RoadmapPage() {
             </div>
           </div>
 
-          {/* Timeline */}
           <div className="bg-white rounded-2xl border border-gray-100 p-6">
             <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Map className="w-4 h-4 text-blue-600" />
@@ -157,7 +154,6 @@ export default function RoadmapPage() {
             </div>
           </div>
 
-          {/* Required skills */}
           <div className="bg-white rounded-2xl border border-gray-100 p-6">
             <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
               <Briefcase className="w-4 h-4 text-emerald-600" />
@@ -170,7 +166,6 @@ export default function RoadmapPage() {
             </div>
           </div>
 
-          {/* Courses */}
           <div className="bg-white rounded-2xl border border-gray-100 p-6">
             <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <BookOpen className="w-4 h-4 text-purple-600" />

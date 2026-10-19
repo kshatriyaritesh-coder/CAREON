@@ -26,7 +26,6 @@ export default function Demo() {
   const [expandedJob, setExpandedJob] = useState<string | null>(null);
   const [selectedPath, setSelectedPath] = useState(demoCareerPaths[0]);
 
-  // Interview demo state
   const [interviewPhase, setInterviewPhase] = useState<'setup' | 'q1' | 'q2' | 'results'>('setup');
   const [answer1, setAnswer1] = useState('');
   const [answer2, setAnswer2] = useState('');
@@ -54,12 +53,10 @@ export default function Demo() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Demo banner */}
       <div className="bg-amber-500 text-white py-2.5 px-4 text-center text-sm font-medium">
         Demo Mode — Data is not saved. <Link to="/auth?mode=signup" className="underline font-bold">Create a free account</Link> to save your progress.
       </div>
 
-      {/* Nav */}
       <nav className="bg-white border-b border-gray-100 px-6 h-14 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center">
@@ -74,7 +71,6 @@ export default function Demo() {
       </nav>
 
       <div className="max-w-5xl mx-auto p-6 space-y-6">
-        {/* Profile summary */}
         <div className="bg-white rounded-2xl border border-gray-100 p-5">
           <div className="flex items-center gap-4 flex-wrap">
             <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-lg">A</div>
@@ -89,7 +85,6 @@ export default function Demo() {
           </div>
         </div>
 
-        {/* Tabs */}
         <div className="flex gap-1 bg-gray-100 p-1 rounded-xl overflow-x-auto">
           {([
             { key: 'roadmap', label: 'Career Roadmap', icon: Map },
@@ -110,7 +105,6 @@ export default function Demo() {
           ))}
         </div>
 
-        {/* Roadmap Tab */}
         {activeTab === 'roadmap' && (
           <div className="space-y-5">
             <div className="grid md:grid-cols-3 gap-4">
@@ -180,7 +174,6 @@ export default function Demo() {
           </div>
         )}
 
-        {/* Jobs Tab */}
         {activeTab === 'jobs' && (
           <div className="space-y-4">
             <p className="text-sm text-gray-500">Scored against demo resume (Python, JavaScript, React, HTML, CSS, Git, SQL, Node.js)</p>
@@ -262,7 +255,6 @@ export default function Demo() {
           </div>
         )}
 
-        {/* Interview Tab */}
         {activeTab === 'interview' && (
           <div className="bg-white rounded-2xl border border-gray-100 p-6">
             {interviewPhase === 'setup' && (
@@ -347,7 +339,6 @@ export default function Demo() {
           </div>
         )}
 
-        {/* Notifications Tab */}
         {activeTab === 'notifications' && (
           <div className="space-y-3">
             {notifications.map(n => {
@@ -380,7 +371,6 @@ export default function Demo() {
           </div>
         )}
 
-        {/* CTA */}
         <div className="bg-blue-600 rounded-2xl p-6 text-white text-center">
           <h3 className="font-bold text-lg mb-2">Save your progress & unlock everything</h3>
           <p className="text-blue-100 text-sm mb-5">Create a free account to save your roadmap, upload your real resume, and track your mock interview history.</p>

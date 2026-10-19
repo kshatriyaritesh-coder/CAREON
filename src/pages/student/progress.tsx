@@ -5,8 +5,6 @@ import {
   TrendingUp, Compass, ChevronRight, Sparkles, Briefcase,
 } from 'lucide-react';
 
-// TODO: replace this mock data with real Supabase queries once
-// you have tables for roadmap_steps, applications, and skills.
 const mockUser = { currentStreak: 0, assessmentPct: 0 };
 
 const mockRoadmapSteps = [
@@ -55,7 +53,6 @@ export default function progress() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-      {/* 1. Welcome banner */}
       <div className="col-span-12 lg:col-span-8 relative overflow-hidden bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 text-white rounded-3xl p-8 shadow-sm border border-indigo-950/80 flex flex-col justify-between min-h-[220px]">
         <div className="absolute right-0 bottom-0 top-0 w-1/3 opacity-10 pointer-events-none">
           <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -77,7 +74,6 @@ export default function progress() {
         </div>
       </div>
 
-      {/* 2. Streak card */}
       <div className="col-span-12 lg:col-span-4 bg-gradient-to-br from-orange-400 to-orange-500 rounded-3xl p-6 text-white shadow-sm flex flex-col justify-between min-h-[220px]">
         <div>
           <p className="text-[10px] font-bold uppercase tracking-widest opacity-80">Daily Level Up</p>
@@ -101,7 +97,6 @@ export default function progress() {
         </div>
       </div>
 
-      {/* 3. Career progress ring */}
       <div className="col-span-12 lg:col-span-4 bg-white rounded-3xl border border-slate-200 p-6 shadow-sm flex flex-col items-center justify-between relative overflow-hidden min-h-[360px]">
         <div className="absolute top-0 left-0 w-full h-1 bg-indigo-600"></div>
         <div className="w-full flex justify-between items-center mb-2">
@@ -144,7 +139,6 @@ export default function progress() {
         </div>
       </div>
 
-      {/* 4. Daily targets checklist */}
       <div className="col-span-12 lg:col-span-5 bg-white rounded-3xl border border-slate-200 p-6 shadow-sm flex flex-col h-full min-h-[360px]">
         <div className="flex justify-between items-center mb-4">
           <div className="flex items-center gap-2">
@@ -212,7 +206,6 @@ export default function progress() {
         )}
       </div>
 
-      {/* 5. Weekly activity intensity */}
       <div className="col-span-12 lg:col-span-3 bg-slate-900 rounded-3xl p-6 text-white shadow-sm flex flex-col justify-between min-h-[360px]">
         <div className="flex flex-col gap-1">
           <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Consistency</p>
@@ -245,7 +238,6 @@ export default function progress() {
         </div>
       </div>
 
-      {/* 6. Job application pipeline */}
       <div className="col-span-12 lg:col-span-9 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
         <div className="flex justify-between items-center mb-5">
           <div className="flex items-center gap-2">
@@ -273,7 +265,6 @@ export default function progress() {
         </div>
       </div>
 
-      {/* 7. Active roadmap steps */}
       <div className="col-span-12 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col">
         <div className="flex justify-between items-center mb-5">
           <div className="flex items-center gap-2">
