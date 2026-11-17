@@ -74,7 +74,7 @@ export default function Auth() {
             <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center">
               <Zap className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-bold text-gray-900">CareerPath</span>
+            <span className="text-xl font-bold text-gray-900">CAREON</span>
           </Link>
           <h1 className="text-2xl font-bold text-gray-900">
             {mode === 'signin' ? 'Welcome back' : 'Create your account'}

@@ -25,7 +25,7 @@ export default function CompanyLayout() {
         <div className="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center">
           <Zap className="w-4 h-4 text-white" />
         </div>
-        <span className="font-bold text-gray-900">CareerPath</span>
+        <span className="font-bold text-gray-900">CAREON</span>
         <span className="text-xs bg-emerald-100 text-emerald-700 rounded px-1.5 py-0.5 font-medium">Company</span>
       </div>
       <div className="p-4 flex-1">

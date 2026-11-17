@@ -62,7 +62,7 @@ export default function Demo() {
           <div className="w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center">
             <Zap className="w-4 h-4 text-white" />
           </div>
-          <span className="font-bold text-gray-900">CareerPath</span>
+          <span className="font-bold text-gray-900">CAREON</span>
           <span className="text-xs bg-amber-100 text-amber-700 rounded px-2 py-0.5 font-medium">Demo</span>
         </div>
         <Link to="/auth?mode=signup" className="bg-blue-600 text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors flex items-center gap-1.5">
@@ -79,7 +79,7 @@ export default function Demo() {
               <p className="text-sm text-gray-500">Computer Science student — {demoAssessment.technical_skills.slice(0, 4).join(', ')}</p>
             </div>
             <div className="flex items-center gap-2 bg-amber-50 text-amber-700 text-sm font-medium px-4 py-2 rounded-xl">
-              <Star className="w-4 h-4" />
+              
               Demo Profile
             </div>
           </div>

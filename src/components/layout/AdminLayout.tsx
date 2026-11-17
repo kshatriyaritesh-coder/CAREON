@@ -19,7 +19,7 @@ export default function AdminLayout() {
             <div className="w-8 h-8 rounded-lg bg-slate-700 flex items-center justify-center">
               <Zap className="w-4 h-4 text-white" />
             </div>
-            <span className="font-bold text-gray-900">CareerPath</span>
+            <span className="font-bold text-gray-900">CAREON</span>
             <span className="text-xs bg-slate-100 text-slate-700 rounded px-1.5 py-0.5 font-medium">Admin</span>
           </div>
           <nav className="p-4 flex-1 space-y-0.5">
