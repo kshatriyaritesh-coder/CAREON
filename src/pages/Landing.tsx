@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { ArrowRight, BookOpen, Briefcase, BarChart2, MessageSquare, Bell, ShieldCheck, Star, Users, Zap } from 'lucide-react';
+import { ArrowRight, BookOpen, Briefcase, BarChart2, MessageSquare, Bell, ShieldCheck, Users, Zap } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 
 export default function Landing() {
@@ -52,10 +52,6 @@ export default function Landing() {
 
       <section className="pt-32 pb-24 px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
-            <Star className="w-3.5 h-3.5" />
-            AI-Powered Career Guidance
-          </div>
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight mb-6">
             Discover your perfect<br />
             <span className="text-blue-600">career path</span>
